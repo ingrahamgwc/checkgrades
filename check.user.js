@@ -38,6 +38,6 @@ alert(names);
 
 // adds text before the grades
 var testText = $('<p>').text('hello');
-console.log(testText);
-console.log($('.grade-info'));
+//console.log(testText);
+//console.log($('.grade-info'));
 $('.grade-info').prepend(testText);
