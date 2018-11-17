@@ -3,10 +3,10 @@
 // @namespace     http://github.com/ingrahamgwc
 // @description   check your grades
 // @include       https://ps.seattleschools.org/guardian/home.html
+// @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // ==/UserScript==
 
 alert("hello");
-
 
 var elementlist = document.getElementsByTagName("td");
 
@@ -35,3 +35,9 @@ function getCol(tableid, col) {
 var names = getCol("tblgrades", 11);
 alert(names);
 
+
+// adds text before the grades
+var testText = $('<p>').text('hello');
+console.log(testText);
+console.log($('.grade-info'));
+$('.grade-info').prepend(testText);
