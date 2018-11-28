@@ -2,14 +2,6 @@
 // @name          checkgrades
 // @namespace     http://github.com/ingrahamgwc
 // @description   check your grades
-// @include       https://ps.seattleschools.org/guardian/home.html
-// @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
-// ==/UserScript==
-
-// ==UserScript==
-// @name          checkgrades
-// @namespace     http://github.com/ingrahamgwc
-// @description   check your grades
 // @grant         GM.setValue
 // @grant         GM.getValue
 // @include       https://ps.seattleschools.org/guardian/home.html
