@@ -7,7 +7,6 @@
 // @grant         GM.setValue
 // @grant         GM.getValue
 // @grant         GM.listValues
-// @include       https://ps.seattleschools.org/guardian/home.html
 // ==/UserScript==
 
 //make function that loops through to find value of columns and returns as an array (?)
