@@ -4,19 +4,13 @@
 // @description   check your grades
 // @include       https://ps.seattleschools.org/guardian/home.html
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
-// ==/UserScript==
-
-// ==UserScript==
-// @name          checkgrades
-// @namespace     http://github.com/ingrahamgwc
-// @description   check your grades
 // @grant         GM.setValue
 // @grant         GM.getValue
+// @grant         GM.listValues
 // @include       https://ps.seattleschools.org/guardian/home.html
 // ==/UserScript==
 
 //make function that loops through to find value of columns and returns as an array (?)
-
 
 class Grade {
   //constructor sets name
@@ -33,12 +27,12 @@ class Grade {
   changePercentage(nper) {
     this.percentage = per;
   }
+  
+  equals(other) {
+    
+  }
  
 }
-
-//elementlist - collection of all tabledata objects
-var elementlist = document.getElementsByTagName("td");
-
 
 //getCol - takes table id, and column value and returns array of strings with content
 
@@ -69,16 +63,18 @@ function getCol(tableid, col) {
 //beginning to the phrase passed as as a parameter, returns array of spliced values
 
 
-function titleSplice(arr, phrase) {
+function titleSplice(arr, phrase, front) {
   console.log("array length " + arr.length);
   for (var i = 0; i < arr.length; i++) {
     temp = arr[i];
     index = temp.indexOf(phrase);
     
-    if (index > 0) {
+    if (front && index > 0) {
       
     	temp = temp.slice(0, index);
       
+    } else if (!front && index > 0) {
+      temp = temp.slice(index, temp.length-1);
     }
     console.log(temp);
     arr[i] = temp;
@@ -86,20 +82,52 @@ function titleSplice(arr, phrase) {
   return arr;
 }
 
+
+async function getGrades() {
+  var temp = await GM.getValue("noogrd", -1);
+  if (temp != -1) {
+    return temp;
+  } else {
+    return false; 
+  }
+}
+
+//adds text before the grades                            
+async function addTextToPage(){
+  var testText = $('<p>').text(await getGrades());
+  console.log(testText);
+  console.log($('.grade-info'));
+  $('.grade-info').prepend(testText);
+}
+  
+//takes in the values for the names and the grades, and creates grade objects 
+function createGradeObjects(){
+  
+}
+
+  
+
+
+
+//elementlist - collection of all tabledata objects
+var elementlist = document.getElementsByTagName("td");
+
+//names - collection of all school class names
 var names = getCol("tblgrades", 11);
-names = titleSplice(names, "Details");
+names = titleSplice(names, "Details", true);
 alert(names);
 
-
-var grades = getCol("tblgrades", 12)
+//grades - collection of all grades for school classes
+var grades = getCol("tblgrades", 13);
 alert(grades);
 
+addTextToPage();
 
-// adds text before the grades
-//var testText = $('<p>').text('hello');
-//console.log(testText);
-//console.log($('.grade-info'));
-//$('.grade-info').prepend(testText);
+
+
+//GM.setValue("noogrd", grades);
+
+
 
 GM.setValue("hello", "hi");
 
@@ -114,4 +142,7 @@ GM.setValue("hello", "hi");
   let count_after = await GM.getValue('hello');
 
   console.log('Greasemonkey set-and-get Example has run', count_after, 'times');
+  console.log(await GM.listValues());
+  
 })();
+
