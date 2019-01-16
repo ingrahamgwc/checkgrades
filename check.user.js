@@ -7,6 +7,7 @@
 // @grant         GM.setValue
 // @grant         GM.getValue
 // @grant         GM.listValues
+// @include       https://ps.seattleschools.org/guardian/home.html
 // ==/UserScript==
 
 //make function that loops through to find value of columns and returns as an array (?)
@@ -98,14 +99,22 @@ async function addTextToPage(){
   console.log($('.grade-info'));
   $('.grade-info').prepend(testText);
 }
+
+
+function openNewPages() {
+  var links = document.getElementsByTagName("a");
+  for (i in links) {
+    var href = links[i].href;
+    if (href.toLowerCase().indexOf("scores.html") > -1){
+      window.open(links[i].href);
+    }
+  }
+}
   
 //takes in the values for the names and the grades, and creates grade objects 
 function createGradeObjects(){
   
 }
-
-  
-
 
 
 //elementlist - collection of all tabledata objects
@@ -122,7 +131,7 @@ alert(grades);
 
 addTextToPage();
 
-
+openNewPages();
 
 //GM.setValue("noogrd", grades);
 
@@ -144,4 +153,9 @@ GM.setValue("hello", "hi");
   console.log(await GM.listValues());
   
 })();
+
+
+
+
+
 
