@@ -139,20 +139,18 @@ openNewPages();
 
 GM.setValue("hello", "hi");
 
-(async () => {
-  let count_before = await GM.getValue('hello');
-  console.log(count_before);
+async function setGrades(){
+  GM.setValue("oldgrds", grades);
+}
 
-  // Note awaiting the set -- required so the next get sees this set.
-  await GM.setValue('hello', "what's up");
-
-  // Get the value again, just to demonstrate order-of-operations.
-  let count_after = await GM.getValue('hello');
-
-  console.log('Greasemonkey set-and-get Example has run', count_after, 'times');
-  console.log(await GM.listValues());
-  
-})();
+async function getGrades() {
+  var temp = await GM.getValue("oldgrds", -1);
+  if (temp != -1) {
+    return temp;
+  } else {
+    return false; 
+  }
+}
 
 
 
